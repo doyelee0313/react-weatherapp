@@ -1,0 +1,23 @@
+body{
+  background: url(https://thumbs.dreamstime.com/z/seamless-weather-background-29606686.jpg);
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+.button-box{
+  border: 3px white solid;
+  padding:0% 50px;
+  border-radius: 10;
+}
+.weather-box{
+  border: 3px white solid;
+  padding:0% 50px;
+  border-radius: 10;
+}

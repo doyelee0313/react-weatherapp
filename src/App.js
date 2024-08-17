@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import WeatherBox from './component/WeatherBox';
 import WeatherButton from './component/WeatherButton';
@@ -12,14 +12,12 @@ import WeatherButton from './component/WeatherButton';
 //5. 데이터를 들고 오는 동안 로딩 스피너가 돈다
 function App() {
   const [weather, setWeather] = useState(null)
-  const getCurrentLocation = () => {
+  const getCurrentLocation = useCallback(() => {
     navigator.geolocation.getCurrentPosition((position)=>{
-      let lat = position.coords.latitude;
-      let lon = position.coords.longitude;
-      getWeatherByCurrentLocation(lat, lon)
-      // console.log("현재위치", lat, lon);
-    });
-  };
+      let lat = position.coords.latitude
+      let lon = position.coords.longitude
+      getWeatherByCurrentLocation(lat, lon)});
+  }, []);
   const getWeatherByCurrentLocation = async(lat, lon) => {
     let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=a63949cb666d1a4a79a69224e0327f7b&units=metric`
     let response = await fetch(url); //비동기여야지만 await 쓸 수 있음
@@ -27,8 +25,8 @@ function App() {
     setWeather(data);
   };
   useEffect(()=>{
-    getCurrentLocation();
-  }, [])
+    getCurrentLocation()
+  }, [getCurrentLocation])
   return (
     <div className="container">
       <WeatherBox className="weather-box" weather={weather}/>
